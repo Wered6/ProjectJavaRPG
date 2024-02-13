@@ -43,10 +43,105 @@ public class Game
         GameLogic.anythingToContinue();
     }
 
+    // method that changes the game's values based on player xp
+    private void checkAct()
+    {
+        // change acts based on xp
+        if (player.getXp() >= 10 && act == 1)
+        {
+            // increment act
+            act = 2;
+            // story
+            Story.printFirstActOutro();
+            // let the player "level up"
+            player.chooseTrait();
+            // story
+            Story.printSecondActIntro();
+            // assign new values to enemies
+            enemies[0] = "Iluzjonista";
+            enemies[1] = "Ożywiony Obrońca";
+            enemies[2] = "Wygnany Czarownik";
+            enemies[3] = "Zaklinacz Bestii";
+            enemies[4] = "Patriarcha Cieni";
+            // assign new values to encounters
+            encounters[0] = "Walka";
+            encounters[1] = "Walka";
+            encounters[2] = "Walka";
+            encounters[3] = "Odpoczynek";
+            encounters[4] = "Sklep";
+        }
+        else if (player.getXp() >= 50 && act == 2)
+        {
+            // increment act
+            act = 3;
+            // story
+            Story.printSecondActOutro();
+            // let the player "level up"
+            player.chooseTrait();
+            // story
+            Story.printThirdActIntro();
+            // assign new values to enemies
+            enemies[0] = "Płomienny Strażnik";
+            enemies[1] = "Duch Wojownika";
+            enemies[2] = "Nocny Przemytnik";
+            enemies[3] = "Arcymag Krwi";
+            enemies[4] = "Siewca Zapomnienia";
+            // assign new valyes to encounters
+            encounters[0] = "Walka";
+            encounters[1] = "Walka";
+            encounters[2] = "Walka";
+            encounters[3] = "Walka";
+            encounters[4] = "Sklep";
+            // fully heal the player
+            player.restoreHp();
+        }
+        else if (player.getXp() >= 100 && act == 3)
+        {
+            // increment act
+            act = 4;
+            // story
+            Story.printThirdActOutro();
+            // let the player "level up"
+            player.chooseTrait();
+            // story
+            Story.printFourthActIntro();
+            // fully heal the player
+            player.restoreHp();
+            // calling the final battle
+            // finalBattle();
+        }
+    }
+
+    // method to calculate a random encounter
+    private void randomEncounter()
+    {
+        // random number between 0 and the length of the encounters array
+        int encounter = (int) (Math.random() * encounters.length);
+        // calling the respective methods
+        if (encounters[encounter].equals("Walka"))
+        {
+            // randomBattle();
+        }
+        else if (encounters[encounter].equals("Rest"))
+        {
+            // takeRest();
+        }
+        else
+        {
+            // shop();
+        }
+    }
+
     // method to continue the journey
     private void continueJourney()
     {
-
+        // check if act must be increased
+        checkAct();
+        // check if game isn't last act
+        if (act != 4)
+        {
+             randomEncounter();
+        }
     }
 
     // printing the main menu
@@ -113,8 +208,13 @@ public class Game
         }
     }
 
+    // random encounters
+    private String[] encounters = {"Walka", "Walka", "Walka", "Odpoczynek", "Odpoczynek"};
+    //enemy names
+    private String[] enemies = {"Zwiadowca Mglistych Lasów", "Cienisty Mag", "Posłaniec Strachu", "Nieumarły Strażnik", "Berserker Cienia"};
+
     // story elements
-    private int act;
+    private int act = 1;
     private boolean isRunning;
     private Player player;
 }

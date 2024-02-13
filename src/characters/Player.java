@@ -43,6 +43,11 @@ public class Player extends Character
         return xp;
     }
 
+    public void restoreHp()
+    {
+        hp = maxHp;
+    }
+
     @Override
     public int attack()
     {
