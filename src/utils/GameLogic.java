@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 abstract public class GameLogic
@@ -19,13 +20,13 @@ abstract public class GameLogic
             catch (Exception e)
             {
                 input = -1;
-                printStringLetterByLetter("Wprowadź liczbę całkowitą (integer)!");
+                print("Wprowadź liczbę całkowitą (integer)!");
                 scanner.nextLine(); // clears buffer
             }
 
             if (input < 1 || input > userChoices)
             {
-                printStringLetterByLetter("Wprowadź liczbę z przedziału [" + 1 + ", " + userChoices + "].");
+                print("Wprowadź liczbę z przedziału [" + 1 + ", " + userChoices + "].");
             }
         }
         while (input < 1 || input > userChoices);
@@ -36,7 +37,7 @@ abstract public class GameLogic
     public static boolean readBoolean()
     {
         String str = "Wprowadź [T/N]";
-        printStringLetterByLetter(str);
+        print(str);
 
         while (true)
         {
@@ -52,13 +53,13 @@ abstract public class GameLogic
             else
             {
                 str = "Nieprawidłowy wybór. Proszę wprowadź 'T' lub 'N'";
-                printStringLetterByLetter(str);
+                print(str);
             }
         }
     }
 
     // method to print anything letter by letter with custom delay
-    public static void printStringLetterByLetter(String str, long delayTime)
+    public static void print(String str, long delayTime)
     {
         for (int i = 0; i < str.length(); i++)
         {
@@ -76,38 +77,47 @@ abstract public class GameLogic
     }
 
     // method to print anything letter by letter with default delay
-    public static void printStringLetterByLetter(String str)
+    public static void print(String str)
     {
-        for (int i = 0; i < str.length(); i++)
-        {
-            System.out.print(str.charAt(i));
-            try
-            {
-                Thread.sleep(35);
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        System.out.println();
+        print(str, 35);
     }
 
-    // method to simulate clearing out the console
     public static void clearConsole()
     {
-        for (int i = 0; i < 100; i++)
+        try
         {
-            System.out.println();
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows"))
+            {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else
+            {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        }
+        catch (IOException | InterruptedException e)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                System.out.println();
+            }
+            if (e instanceof InterruptedException)
+            {
+                Thread.currentThread().interrupt();
+            }
         }
     }
+
 
     // method to print separator with length n
     public static void printSeparator(int n)
     {
         for (int i = 0; i < n; i++)
         {
-            printStringLetterByLetter("-");
+            print("-");
             System.out.println();
         }
     }
@@ -116,7 +126,7 @@ abstract public class GameLogic
     public static void printHeading(String title)
     {
         printSeparator(30);
-        printStringLetterByLetter(title);
+        print(title);
         printSeparator(30);
     }
 
@@ -124,7 +134,7 @@ abstract public class GameLogic
     public static void anythingToContinue()
     {
         String str = "\nWprowadź cokolwiek by kontynuuować...";
-        printStringLetterByLetter(str);
+        print(str);
         scanner.next();
     }
 
