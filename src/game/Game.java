@@ -13,7 +13,6 @@ public class Game
 
     private void startGame()
     {
-        boolean nameSet = false;
         String name;
         // print title screen
         GameLogic.clearConsole();
@@ -29,8 +28,14 @@ public class Game
         GameLogic.clearConsole();
         name = GameLogic.readName();
 
+        // print story intro
+        Story.printIntro();
+
         // create new play object with the name
         player = new Player(name);
+
+        // print first story act intro
+        Story.printFirstActIntro();
 
         // setting isRunning to true, so the game loop can continue
         isRunning = true;
@@ -64,6 +69,7 @@ public class Game
         GameLogic.println(player.getName() + "\tHP: " + player.getHp() + "/" + player.getMaxHp());
         GameLogic.printSeparator(20);
         GameLogic.println("XP: " + player.getXp());
+        GameLogic.printSeparator(20);
 
         // printing the chosen traits
         if (player.numAtkUpgrades > 0)
@@ -91,19 +97,24 @@ public class Game
                 case 1:
                 {
                     continueJourney();
+                    break;
                 }
                 case 2:
                 {
                     characterInfo();
+                    break;
                 }
                 case 3:
                 {
                     isRunning = false;
+                    break;
                 }
             }
         }
     }
 
+    // story elements
+    private int act;
     private boolean isRunning;
     private Player player;
 }

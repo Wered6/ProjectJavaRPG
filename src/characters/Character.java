@@ -1,6 +1,6 @@
 package characters;
 
-public abstract class Character
+abstract public class Character
 {
     // constructor for character
     public Character(String name, int maxHp, int hp, int xp)
