@@ -23,6 +23,26 @@ public class Player extends Character
         chooseTrait();
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getMaxHp()
+    {
+        return maxHp;
+    }
+
+    public int getHp()
+    {
+        return hp;
+    }
+
+    public int getXp()
+    {
+        return xp;
+    }
+
     @Override
     public int attack()
     {

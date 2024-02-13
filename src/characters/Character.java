@@ -17,6 +17,6 @@ public abstract class Character
     public abstract int defend();
 
     // attributes all characters have
-    private String name;
-    private int maxHp, hp, xp;
+    protected String name;
+    protected int maxHp, hp, xp;
 }
