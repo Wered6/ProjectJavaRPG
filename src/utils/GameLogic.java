@@ -15,6 +15,7 @@ abstract public class GameLogic
         {
             try
             {
+                print("-> ");
                 print(ANSI_GREEN);
                 input = scanner.nextInt();
                 print(ANSI_RESET);
@@ -43,6 +44,7 @@ abstract public class GameLogic
 
         while (true)
         {
+            print("-> ");
             print(ANSI_GREEN);
             String input = scanner.nextLine();
             print(ANSI_RESET);
@@ -68,6 +70,7 @@ abstract public class GameLogic
         while (true)
         {
             println("Jak masz na imię?");
+            print("-> ");
             print(ANSI_GREEN);
             name = scanner.nextLine().trim();
             print(ANSI_RESET);
@@ -172,6 +175,7 @@ abstract public class GameLogic
     {
         String str = "\nWprowadź cokolwiek by kontynuuować...";
         println(str);
+        print("-> ");
         print(ANSI_GREEN);
         scanner.nextLine(); // to catch the rest of the line after the previous input
         scanner.nextLine(); // to actually wait for the new input
