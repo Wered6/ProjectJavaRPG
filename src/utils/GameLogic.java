@@ -15,7 +15,9 @@ abstract public class GameLogic
         {
             try
             {
+                print(ANSI_GREEN);
                 input = scanner.nextInt();
+                print(ANSI_RESET);
             }
             catch (InputMismatchException e)
             {
@@ -36,12 +38,14 @@ abstract public class GameLogic
 
     public static boolean readBoolean()
     {
-        String str = "Wprowadź [T/N]";
-        print(str);
+        String str = "[T/N]?";
+        println(str);
 
         while (true)
         {
+            print(ANSI_GREEN);
             String input = scanner.nextLine();
+            print(ANSI_RESET);
             if ("T".equalsIgnoreCase(input))
             {
                 return true;
@@ -53,9 +57,34 @@ abstract public class GameLogic
             else
             {
                 str = "Nieprawidłowy wybór. Proszę wprowadź 'T' lub 'N'";
-                print(str);
+                println(str);
             }
         }
+    }
+
+    public static String readName()
+    {
+        String name;
+        while (true)
+        {
+            println("Jak masz na imię?");
+            print(ANSI_GREEN);
+            name = scanner.nextLine().trim();
+            print(ANSI_RESET);
+            println("Czy na pewno chcesz się tak nazywać? [" + name + "]");
+
+            boolean confirmation = readBoolean();
+
+            if (confirmation)
+            {
+                break;
+            }
+            else
+            {
+                println("Ok, spróbujmy jeszcze raz.");
+            }
+        }
+        return name;
     }
 
     // method to print anything letter by letter with custom delay
@@ -73,6 +102,11 @@ abstract public class GameLogic
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void println(String str, long delayTime)
+    {
+        print(str, delayTime);
         System.out.println();
     }
 
@@ -80,6 +114,12 @@ abstract public class GameLogic
     public static void print(String str)
     {
         print(str, 35);
+    }
+
+    public static void println(String str)
+    {
+        print(str);
+        System.out.println();
     }
 
     public static void clearConsole()
@@ -100,10 +140,8 @@ abstract public class GameLogic
         }
         catch (IOException | InterruptedException e)
         {
-            for (int i = 0; i < 100; i++)
-            {
-                System.out.println();
-            }
+            System.out.println("".repeat(100));
+
             if (e instanceof InterruptedException)
             {
                 Thread.currentThread().interrupt();
@@ -111,18 +149,21 @@ abstract public class GameLogic
         }
     }
 
-
     // method to print separator with length n
     public static void printSeparator(int n)
     {
-        System.out.println("-".repeat(n));
+        for (int i = 0; i < n; i++)
+        {
+            print("-");
+        }
+        println("");
     }
 
     // method to print heading
     public static void printHeading(String title)
     {
         printSeparator(30);
-        print(title);
+        println(title);
         printSeparator(30);
     }
 
@@ -130,10 +171,15 @@ abstract public class GameLogic
     public static void anythingToContinue()
     {
         String str = "\nWprowadź cokolwiek by kontynuuować...";
-        print(str);
+        println(str);
+        print(ANSI_GREEN);
         scanner.nextLine(); // to catch the rest of the line after the previous input
         scanner.nextLine(); // to actually wait for the new input
+        print(ANSI_RESET);
     }
+
+    static String ANSI_GREEN = "\u001B[32m";
+    static String ANSI_RESET = "\u001B[0m";
 
     static Scanner scanner = new Scanner(System.in);
 }
