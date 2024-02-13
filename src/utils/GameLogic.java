@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 abstract public class GameLogic
@@ -14,14 +15,13 @@ abstract public class GameLogic
         {
             try
             {
-                input = Integer.parseInt(scanner.next());
-                scanner.nextLine(); // clears buffer
+                input = scanner.nextInt();
             }
-            catch (Exception e)
+            catch (InputMismatchException e)
             {
                 input = -1;
                 print("Wprowadź liczbę całkowitą (integer)!");
-                scanner.nextLine(); // clears buffer
+                scanner.next(); // clears buffer
             }
 
             if (input < 1 || input > userChoices)
@@ -115,11 +115,7 @@ abstract public class GameLogic
     // method to print separator with length n
     public static void printSeparator(int n)
     {
-        for (int i = 0; i < n; i++)
-        {
-            print("-");
-            System.out.println();
-        }
+        System.out.println("-".repeat(n));
     }
 
     // method to print heading
@@ -135,7 +131,8 @@ abstract public class GameLogic
     {
         String str = "\nWprowadź cokolwiek by kontynuuować...";
         print(str);
-        scanner.next();
+        scanner.nextLine(); // to catch the rest of the line after the previous input
+        scanner.nextLine(); // to actually wait for the new input
     }
 
     static Scanner scanner = new Scanner(System.in);
