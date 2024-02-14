@@ -126,7 +126,7 @@ public class Game
             encounters[0] = "Battle";
             encounters[1] = "Battle";
             encounters[2] = "Battle";
-            encounters[3] = "Rest";
+            encounters[3] = "Shop";
             encounters[4] = "Shop";
         }
         else if (player.getXp() >= 50 && act == 2)
@@ -181,10 +181,6 @@ public class Game
         {
             randomBattle();
         }
-        else if (encounters[encounter].equals("Rest"))
-        {
-            takeRest();
-        }
         else
         {
             shop();
@@ -232,37 +228,6 @@ public class Game
                 GameLogic.printHeading("You don't have enough gold to buy this...");
             }
             GameLogic.enterToContinue();
-        }
-    }
-
-    // taking a rest
-    private void takeRest()
-    {
-        GameLogic.clearConsole();
-        if (player.getRestsLeft() >= 1)
-        {
-            GameLogic.printHeading("Do you want to take a rest? (" + player.getRestsLeft() + " rest(s) left).");
-            GameLogic.println("(1) Yes");
-            GameLogic.println("(2) No, not now.");
-            int input = GameLogic.readInt(2);
-            if (input == 1)
-            {
-                // player actually take rest
-                GameLogic.clearConsole();
-                if (player.getHp() < player.getMaxHp())
-                {
-                    int hpRestored = (int) (Math.random() * (player.getXp() / 4 + 1) + 10);
-                    player.restoreHp(hpRestored);
-                    GameLogic.println("You took a rest and restored up to " + hpRestored + " health.");
-                    GameLogic.println("You're now at " + player.getHp() + "/" + player.getMaxHp() + " health.");
-                    player.subRestsLeft();
-                }
-                else
-                {
-                    GameLogic.println("You're at full health, You don't need to rest now!");
-                }
-                GameLogic.enterToContinue();
-            }
         }
     }
 
@@ -336,13 +301,7 @@ public class Game
                     player.addXp(enemy.getXp());
                     GameLogic.println("You earned " + enemy.getXp() + " XP!");
                     // random drops
-                    boolean addRest = (Math.random() * 5 + 1 <= 2.25);
                     int goldEarned = (int) (Math.random() * enemy.getXp());
-                    if (addRest)
-                    {
-                        player.addRestsLeft();
-                        GameLogic.println("You earned the change to get an additional rest!");
-                    }
                     if (goldEarned > 0)
                     {
                         player.addGold(goldEarned);
@@ -480,7 +439,7 @@ public class Game
     }
 
     // random encounters
-    private String[] encounters = {"Battle", "Battle", "Battle", "Rest", "Rest"};
+    private String[] encounters = {"Battle", "Battle", "Battle", "Shop", "Shop"};
     //enemy names
     private String[] enemies = {"Zwiadowca Mglistych Lasów", "Cienisty Mag", "Posłaniec Strachu", "Nieumarły Strażnik", "Berserker Cienia"};
 

@@ -14,7 +14,6 @@ public class Player extends Character
         this.numDefUpgrades = 0;
         // set additional stats
         this.gold = 5;
-        this.restsLeft = 1;
         this.pots = 0;
         // let the player choose a trait when creating a new character
         chooseTrait();
@@ -73,22 +72,6 @@ public class Player extends Character
         this.gold -= gold;
     }
 
-    // rest methods
-    public int getRestsLeft()
-    {
-        return restsLeft;
-    }
-
-    public void addRestsLeft()
-    {
-        restsLeft++;
-    }
-
-    public void subRestsLeft()
-    {
-        restsLeft--;
-    }
-
     // pots methods
     public int getPots()
     {
@@ -138,6 +121,5 @@ public class Player extends Character
 
     // additional player stats
     private int gold;
-    private int restsLeft;
     private int pots;
 }
