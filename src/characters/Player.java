@@ -9,50 +9,52 @@ public class Player extends Character
     {
         // calling constructor of superclass
         super(name, 100, 0);
-        // setting # of upgrades to 0
-        this.numAtkUpgrades = 0;
-        this.numDefUpgrades = 0;
         // set additional stats
         this.gold = 5;
         this.pots = 0;
-        // let the player choose a trait when creating a new character
-        chooseTrait();
+        // set skills
+        this.strength = 5;
+        this.intelligence = 5;
+        this.skillPoints = 4;
+        spendSkillPoints();
     }
 
     // Player specific methods
     @Override
     public int attack()
     {
-        return (int) (Math.random() * (xp / 4 + numAtkUpgrades * 3 + 3) + xp / 10 + numAtkUpgrades * 2 + numDefUpgrades + 1);
+        return 0;
     }
 
-    @Override
-    public int defend()
+    public void spendSkillPoints()
     {
-        return (int) (Math.random() * (xp / 4 + numDefUpgrades * 3 + 3) + xp / 10 + numDefUpgrades * 2 + numAtkUpgrades + 1);
-    }
+        int skillChoice;
+        int points;
+        String[] skillNames = {"Strength", "Intelligence"};
 
-    // let the player choose a trait of either skill path
-    public void chooseTrait()
-    {
-        GameLogic.clearConsole();
-        GameLogic.printHeading("Choose a trait:");
-        GameLogic.println("(1) " + atkUpgrades[numAtkUpgrades]);
-        GameLogic.println("(2) " + defUpgrades[numDefUpgrades]);
-        // get the players choice
-        int input = GameLogic.readInt(2);
-        GameLogic.clearConsole();
-        // deal with both cases
-        if (input == 1)
+        while (skillPoints > 0)
         {
-            GameLogic.printHeading("You chose " + atkUpgrades[numAtkUpgrades] + "!");
-            numAtkUpgrades++;
+            GameLogic.clearConsole();
+            GameLogic.printHeading("Spend skill points!");
+            GameLogic.println("You have " + skillPoints + " points to spend.");
+            GameLogic.println("Which skill you want to increase?");
+            GameLogic.println("(1) Strength" + "\t[have " + strength + "]");
+            GameLogic.println("(2) Intelligence" + "\t[have " + intelligence + "]");
+            skillChoice = GameLogic.readInt(2);
+            String skillName = skillNames[skillChoice - 1];
+
+            GameLogic.println("How many points you want to spend on " + skillName + "?");
+            points = GameLogic.readInt(skillPoints);
+
+            skillPoints -= points;
+            addSkillByName(skillName, points);
+            GameLogic.println("You have now " + getSkillByName(skillName) + " in " + skillName + ".");
+            GameLogic.enterToContinue();
         }
-        else
-        {
-            GameLogic.printHeading("You chose " + defUpgrades[numDefUpgrades] + "!");
-            numDefUpgrades++;
-        }
+
+        GameLogic.clearConsole();
+        GameLogic.printHeading("You spend all of your points.");
+        showAllSkills();
         GameLogic.enterToContinue();
     }
 
@@ -112,14 +114,64 @@ public class Player extends Character
         this.xp += xp;
     }
 
-    // integers to store number of upgrades/skills in each path
-    public int numAtkUpgrades, numDefUpgrades;
+    // skills methods
 
-    // arrays to store skill names
-    public String[] atkUpgrades = {"Strength", "Power", "Might", "Godlike Strength"};
-    public String[] defUpgrades = {"Heavy Bones", "Stoneskin", "Scale Armor", "Holy Aura"};
+    public int getStrength()
+    {
+        return strength;
+    }
+
+    public int getIntelligence()
+    {
+        return intelligence;
+    }
+
+    public void addStrength(int strength)
+    {
+        this.strength += strength;
+    }
+
+    public void addIntelligence(int intelligence)
+    {
+        this.intelligence += intelligence;
+    }
+
+    public void addSkillPoints(int skillPoints)
+    {
+        this.skillPoints += skillPoints;
+    }
+
+    public void addSkillByName(String skillName, int points)
+    {
+        switch (skillName)
+        {
+            case "Strength" -> addStrength(points);
+            case "Intelligence" -> addIntelligence(points);
+        }
+    }
+
+    public int getSkillByName(String skillName)
+    {
+        return switch (skillName)
+        {
+            case "Strength" -> getStrength();
+            case "Intelligence" -> getIntelligence();
+            default -> 0;
+        };
+    }
+
+    public void showAllSkills()
+    {
+        GameLogic.println("Strength:\t" + strength);
+        GameLogic.println("Intelligence:\t" + intelligence);
+    }
 
     // additional player stats
     private int gold;
     private int pots;
+
+    // skills
+    private int strength;
+    private int intelligence;
+    private int skillPoints;
 }

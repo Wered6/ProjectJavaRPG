@@ -10,15 +10,15 @@ abstract public class Story
         GameLogic.printSeparator(30);
         GameLogic.println("INTRO");
         GameLogic.printSeparator(30);
-        GameLogic.println("W erze zapomnianych przez czas, kiedy magia była tak samo powszechna jak powietrze, które oddychamy, istniał świat pełen tajemnic i niezgłębionych mocy. Ten świat, naznaczony przez wieki konfliktów i sojuszy, był świadkiem narodzin i upadku wielkich królestw. Wśród nich, w cieniu przepowiedni i starożytnych przekazów, rodziła się legenda o Al'reku, tyranie, który za pomocą zakazanej magii i bezwzględnej siły dążył do podporządkowania sobie wszystkich wolnych ludów.");
-        GameLogic.enterToContinue();
-        GameLogic.println("Al'rek, niegdyś szanowany mag, skuszony obietnicą nieograniczonej władzy, zgłębił najmroczniejsze zakamarki zakazanej wiedzy. Jego serce, zatrute żądzą dominacji, przekształciło go w istotę, której same imię wzbudzało strach i rozpacz. Władając mocami, przed którymi drżała sama natura, Al'rek rzucił wyzwanie równowadze świata, dążąc do jego absolutnego panowania.");
-        GameLogic.enterToContinue();
-        GameLogic.println("Jednak, jak głosi starożytna przepowiednia, z popiołów konfliktu ma wznieść się bohater, którego przeznaczeniem jest stawić czoła Al'rekowi i zakończyć jego tyranię. Ten bohater, wyznaczony przez los, to Ty. Twoje dziedzictwo i odwaga są kluczami do zgromadzenia sojuszników, przezwyciężenia wyzwań i stawienia czoła mrocznemu władcy w decydującej walce o przyszłość świata.");
-        GameLogic.enterToContinue();
-        GameLogic.println("Tak oto rozpoczyna się Twoja podróż. Z każdym krokiem bliżej do celu, z każdą bitwą stajesz się silniejszy, gotowy by pisać historię odwagą, która przemieni ciemność w światło. Czy masz to, co potrzebne, by pokonać Al'reka i stać się bohaterem, którego pieśni będą śpiewane przez wieki?");
-        GameLogic.enterToContinue();
-        GameLogic.println("Twoja legenda w \"Age of Al'rek\" zaczyna się teraz. Wyrusz w podróż, która zdecyduje o losie świata.");
+// GameLogic.println("W erze zapomnianych przez czas, kiedy magia była tak samo powszechna jak powietrze, które oddychamy, istniał świat pełen tajemnic i niezgłębionych mocy. Ten świat, naznaczony przez wieki konfliktów i sojuszy, był świadkiem narodzin i upadku wielkich królestw. Wśród nich, w cieniu przepowiedni i starożytnych przekazów, rodziła się legenda o Al'reku, tyranie, który za pomocą zakazanej magii i bezwzględnej siły dążył do podporządkowania sobie wszystkich wolnych ludów.");
+// GameLogic.enterToContinue();
+// GameLogic.println("Al'rek, niegdyś szanowany mag, skuszony obietnicą nieograniczonej władzy, zgłębił najmroczniejsze zakamarki zakazanej wiedzy. Jego serce, zatrute żądzą dominacji, przekształciło go w istotę, której same imię wzbudzało strach i rozpacz. Władając mocami, przed którymi drżała sama natura, Al'rek rzucił wyzwanie równowadze świata, dążąc do jego absolutnego panowania.");
+// GameLogic.enterToContinue();
+// GameLogic.println("Jednak, jak głosi starożytna przepowiednia, z popiołów konfliktu ma wznieść się bohater, którego przeznaczeniem jest stawić czoła Al'rekowi i zakończyć jego tyranię. Ten bohater, wyznaczony przez los, to Ty. Twoje dziedzictwo i odwaga są kluczami do zgromadzenia sojuszników, przezwyciężenia wyzwań i stawienia czoła mrocznemu władcy w decydującej walce o przyszłość świata.");
+// GameLogic.enterToContinue();
+// GameLogic.println("Tak oto rozpoczyna się Twoja podróż. Z każdym krokiem bliżej do celu, z każdą bitwą stajesz się silniejszy, gotowy by pisać historię odwagą, która przemieni ciemność w światło. Czy masz to, co potrzebne, by pokonać Al'reka i stać się bohaterem, którego pieśni będą śpiewane przez wieki?");
+// GameLogic.enterToContinue();
+// GameLogic.println("Twoja legenda w \"Age of Al'rek\" zaczyna się teraz. Wyrusz w podróż, która zdecyduje o losie świata.");
         GameLogic.enterToContinue();
     }
 

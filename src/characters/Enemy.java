@@ -17,12 +17,6 @@ public class Enemy extends Character
         return (int) (Math.random() * (playerXp / 4 + 1) + xp / 4 + 3);
     }
 
-    @Override
-    public int defend()
-    {
-        return (int) (Math.random() * (playerXp / 4 + 1) + xp / 4 + 3);
-    }
-
     // variable to store the player current xp
     private final int playerXp;
 }

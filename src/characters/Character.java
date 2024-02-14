@@ -14,8 +14,6 @@ abstract public class Character
     // methods every character has
     public abstract int attack();
 
-    public abstract int defend();
-
     public void receiveDmg(int dmg)
     {
         hp -= dmg;

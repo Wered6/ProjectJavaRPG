@@ -113,7 +113,7 @@ public class Game
             // story
             Story.printFirstActOutro();
             // let the player "level up"
-            player.chooseTrait();
+
             // story
             Story.printSecondActIntro();
             // assign new values to enemies
@@ -136,7 +136,7 @@ public class Game
             // story
             Story.printSecondActOutro();
             // let the player "level up"
-            player.chooseTrait();
+
             // story
             Story.printThirdActIntro();
             // assign new values to enemies
@@ -161,7 +161,7 @@ public class Game
             // story
             Story.printThirdActOutro();
             // let the player "level up"
-            player.chooseTrait();
+
             // story
             Story.printFourthActIntro();
             // fully heal the player
@@ -263,8 +263,8 @@ public class Game
             {
                 // FIGHT
                 // calculate dmg and dmgTook (dmg enemy deals to player)
-                int dmg = player.attack() - enemy.defend();
-                int dmgTook = enemy.attack() - player.defend();
+                int dmg = player.attack();
+                int dmgTook = enemy.attack();
                 // check that dmg and dmgTook isn't negative
                 if (dmgTook < 0)
                 {
@@ -417,23 +417,14 @@ public class Game
         GameLogic.printHeading("CHARACTER INFO");
         GameLogic.println(player.getName() + "\tHP: " + player.getHp() + "/" + player.getMaxHp());
         GameLogic.printSeparator(20);
+        player.showAllSkills();
+        GameLogic.printSeparator(20);
         // player xp and gold
         GameLogic.println("XP: " + player.getXp() + "\tGold: " + player.getGold());
         GameLogic.printSeparator(20);
         // # of pots
         GameLogic.println("# of Potions: " + player.getPots());
         GameLogic.printSeparator(20);
-
-        // printing the chosen traits
-        if (player.numAtkUpgrades > 0)
-        {
-            GameLogic.println("Offensive trait: " + player.atkUpgrades[player.numAtkUpgrades - 1]);
-            GameLogic.printSeparator(20);
-        }
-        if (player.numDefUpgrades > 0)
-        {
-            GameLogic.println("Defensive trait: " + player.defUpgrades[player.numDefUpgrades - 1]);
-        }
 
         GameLogic.enterToContinue();
     }
