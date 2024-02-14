@@ -368,6 +368,7 @@ public class Game
                     {
                         // player actually took it
                         player.restoreFullHp();
+                        player.subPots();
                         GameLogic.clearConsole();
                         GameLogic.printHeading("You drank a magic potion. It restored your health back to " + player.getMaxHp());
                         GameLogic.enterToContinue();
@@ -436,7 +437,7 @@ public class Game
         // creating the Al'rek and letting the player fight against him
         battle(new Enemy("Al'rek", 300));
         // printing the proper ending
-        Story.printEnd();
+        Story.printEnd(); // its only when we win, what happens when we loose
     }
 
     // method that gets called when the player is dead
@@ -446,6 +447,7 @@ public class Game
         GameLogic.printHeading("You died...");
         GameLogic.printHeading("You earned " + player.getXp() + " XP on your journey. Try to earn more next time!");
         GameLogic.println("Thank you for playing my game. I hope you enjoyed it. :)");
+        GameLogic.enterToContinue();
         isRunning = false;
     }
 

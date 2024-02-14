@@ -131,7 +131,10 @@ abstract public class GameLogic
 
     public static void enterToContinue()
     {
-        System.out.println("####Press Enter to continue...####");
+        print(ANSI_BLUE);
+        println("Press Enter to continue...");
+        print(ANSI_RESET);
+
         try
         {
             System.in.read();
@@ -142,6 +145,7 @@ abstract public class GameLogic
         }
     }
 
+    static String ANSI_BLUE = "\u001B[34m";
     static String ANSI_GREEN = "\u001B[32m";
     static String ANSI_RESET = "\u001B[0m";
 
