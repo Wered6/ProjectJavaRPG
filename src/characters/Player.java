@@ -4,60 +4,33 @@ import utils.GameLogic;
 
 public class Player extends Character
 {
-    // integers to store number of upgrades/skills in each path
-    public int numAtkUpgrades, numDefUpgrades;
-
-    // arrays to store skill names
-    public String[] atkUpgrades = {"Strength", "Power", "Might", "Godlike Strength"};
-    public String[] defUpgrades = {"Heavy Bones", "Stoneskin", "Scale Armor", "Holy Aura"};
-
     // Player specific constructor
     public Player(String name)
     {
         // calling constructor of superclass
-        super(name, 100, 0, 0);
+        super(name, 100, 0);
         // setting # of upgrades to 0
         this.numAtkUpgrades = 0;
         this.numDefUpgrades = 0;
+        // set additional stats
+        this.gold = 5;
+        this.restsLeft = 1;
+        this.pots = 0;
         // let the player choose a trait when creating a new character
         chooseTrait();
     }
 
-    public String getName()
-    {
-        return name;
-    }
-
-    public int getMaxHp()
-    {
-        return maxHp;
-    }
-
-    public int getHp()
-    {
-        return hp;
-    }
-
-    public int getXp()
-    {
-        return xp;
-    }
-
-    public void restoreHp()
-    {
-        hp = maxHp;
-    }
-
+    // Player specific methods
     @Override
     public int attack()
     {
-        return 0;
+        return (int) (Math.random() * (xp / 4 + numAtkUpgrades * 3 + 3) + xp / 10 + numAtkUpgrades * 2 + numDefUpgrades + 1);
     }
 
     @Override
     public int defend()
     {
-        return 0;
+        return (int) (Math.random() * (xp / 4 + numDefUpgrades * 3 + 3) + xp / 10 + numDefUpgrades * 2 + numAtkUpgrades + 1);
     }
 
     // let the player choose a trait of either skill path
@@ -81,6 +54,90 @@ public class Player extends Character
             GameLogic.printHeading("You chose " + defUpgrades[numDefUpgrades] + "!");
             numDefUpgrades++;
         }
-        GameLogic.anythingToContinue();
+        GameLogic.enterToContinue();
     }
+
+    // gold methods
+    public int getGold()
+    {
+        return gold;
+    }
+
+    public void addGold(int gold)
+    {
+        this.gold += gold;
+    }
+
+    public void subGold(int gold)
+    {
+        this.gold -= gold;
+    }
+
+    // rest methods
+    public int getRestsLeft()
+    {
+        return restsLeft;
+    }
+
+    public void addRestsLeft()
+    {
+        restsLeft++;
+    }
+
+    public void subRestsLeft()
+    {
+        restsLeft--;
+    }
+
+    // pots methods
+    public int getPots()
+    {
+        return pots;
+    }
+
+    public void subPots()
+    {
+        pots--;
+    }
+
+    public void addPot()
+    {
+        pots++;
+    }
+
+    // hp methods
+    public void restoreFullHp()
+    {
+        hp = maxHp;
+    }
+
+    public void restoreHp(int hp)
+    {
+        if (this.hp + hp > maxHp)
+        {
+            restoreFullHp();
+        }
+        else
+        {
+            this.hp += hp;
+        }
+    }
+
+    // xp methods
+    public void addXp(int xp)
+    {
+        this.xp += xp;
+    }
+
+    // integers to store number of upgrades/skills in each path
+    public int numAtkUpgrades, numDefUpgrades;
+
+    // arrays to store skill names
+    public String[] atkUpgrades = {"Strength", "Power", "Might", "Godlike Strength"};
+    public String[] defUpgrades = {"Heavy Bones", "Stoneskin", "Scale Armor", "Holy Aura"};
+
+    // additional player stats
+    private int gold;
+    private int restsLeft;
+    private int pots;
 }

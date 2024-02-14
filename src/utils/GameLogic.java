@@ -1,12 +1,10 @@
 package utils;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 abstract public class GameLogic
 {
-    // method to get user input from console
     public static int readInt(int userChoices)
     {
         int input;
@@ -17,19 +15,21 @@ abstract public class GameLogic
             {
                 print("-> ");
                 print(ANSI_GREEN);
-                input = scanner.nextInt();
+                String line = scanner.nextLine();
+                input = Integer.parseInt(line);
                 print(ANSI_RESET);
             }
-            catch (InputMismatchException e)
+            catch (NumberFormatException e)
             {
                 input = -1;
-                print("Wprowadź liczbę całkowitą (integer)!");
-                scanner.next(); // clears buffer
+                print(ANSI_RESET);
+                println("Enter integer!");
             }
 
             if (input < 1 || input > userChoices)
             {
-                print("Wprowadź liczbę z przedziału [" + 1 + ", " + userChoices + "].");
+                print(ANSI_RESET);
+                println("Enter a number between [" + 1 + ", " + userChoices + "].");
             }
         }
         while (input < 1 || input > userChoices);
@@ -37,57 +37,16 @@ abstract public class GameLogic
         return input;
     }
 
-    public static boolean readBoolean()
+    public static String readString()
     {
-        String str = "[T/N]?";
-        println(str);
+        String input;
 
-        while (true)
-        {
-            print("-> ");
-            print(ANSI_GREEN);
-            String input = scanner.nextLine();
-            print(ANSI_RESET);
-            if ("T".equalsIgnoreCase(input))
-            {
-                return true;
-            }
-            else if ("N".equalsIgnoreCase(input))
-            {
-                return false;
-            }
-            else
-            {
-                str = "Nieprawidłowy wybór. Proszę wprowadź 'T' lub 'N'";
-                println(str);
-            }
-        }
-    }
+        print("-> ");
+        print(ANSI_GREEN);
+        input = scanner.nextLine().trim();
+        print(ANSI_RESET);
 
-    public static String readName()
-    {
-        String name;
-        while (true)
-        {
-            println("Jak masz na imię?");
-            print("-> ");
-            print(ANSI_GREEN);
-            name = scanner.nextLine().trim();
-            print(ANSI_RESET);
-            println("Czy na pewno chcesz się tak nazywać? [" + name + "]");
-
-            boolean confirmation = readBoolean();
-
-            if (confirmation)
-            {
-                break;
-            }
-            else
-            {
-                println("Ok, spróbujmy jeszcze raz.");
-            }
-        }
-        return name;
+        return input;
     }
 
     // method to print anything letter by letter with custom delay
@@ -116,7 +75,7 @@ abstract public class GameLogic
     // method to print anything letter by letter with default delay
     public static void print(String str)
     {
-        print(str, 35);
+        print(str, 5);
     }
 
     public static void println(String str)
@@ -170,16 +129,17 @@ abstract public class GameLogic
         printSeparator(30);
     }
 
-    // method to stop the game until user enters anything
-    public static void anythingToContinue()
+    public static void enterToContinue()
     {
-        String str = "\nWprowadź cokolwiek by kontynuuować...";
-        println(str);
-        print("-> ");
-        print(ANSI_GREEN);
-        scanner.nextLine(); // to catch the rest of the line after the previous input
-        scanner.nextLine(); // to actually wait for the new input
-        print(ANSI_RESET);
+        System.out.println("####Press Enter to continue...####");
+        try
+        {
+            System.in.read();
+            scanner.nextLine();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     static String ANSI_GREEN = "\u001B[32m";
