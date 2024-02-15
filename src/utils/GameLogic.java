@@ -11,20 +11,7 @@ abstract public class GameLogic
 
         do
         {
-            try
-            {
-                print("-> ");
-                print(ANSI_GREEN);
-                String line = scanner.nextLine();
-                input = Integer.parseInt(line);
-                print(ANSI_RESET);
-            }
-            catch (NumberFormatException e)
-            {
-                input = -1;
-                print(ANSI_RESET);
-                println("Enter integer!");
-            }
+            input = getInput();
 
             if (input < 1 || input > userChoices)
             {
@@ -43,20 +30,7 @@ abstract public class GameLogic
 
         do
         {
-            try
-            {
-                print("-> ");
-                print(ANSI_GREEN);
-                String line = scanner.nextLine();
-                input = Integer.parseInt(line);
-                print(ANSI_RESET);
-            }
-            catch (NumberFormatException e)
-            {
-                input = -1;
-                print(ANSI_RESET);
-                println("Enter integer!");
-            }
+            input = getInput();
 
             if (input < 0 || input > userChoices)
             {
@@ -66,6 +40,26 @@ abstract public class GameLogic
         }
         while (input < 0 || input > userChoices);
 
+        return input;
+    }
+
+    private static int getInput()
+    {
+        int input;
+        try
+        {
+            print("-> ");
+            print(ANSI_GREEN);
+            String line = scanner.nextLine();
+            input = Integer.parseInt(line);
+            print(ANSI_RESET);
+        }
+        catch (NumberFormatException e)
+        {
+            input = -1;
+            print(ANSI_RESET);
+            println("Enter integer!");
+        }
         return input;
     }
 
@@ -98,16 +92,10 @@ abstract public class GameLogic
         }
     }
 
-    public static void println(String str, long delayTime)
-    {
-        print(str, delayTime);
-        System.out.println();
-    }
-
     // method to print anything letter by letter with default delay
     public static void print(String str)
     {
-        print(str, 5);
+        print(str, 30);
     }
 
     public static void println(String str)
@@ -172,7 +160,7 @@ abstract public class GameLogic
             System.in.read();
             scanner.nextLine();
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
         }
     }
