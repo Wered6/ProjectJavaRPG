@@ -1,0 +1,28 @@
+{
+    "acts": [
+        {
+            "actNumber": "I",
+            "actTitle": "Rise of the Hero",
+            "intro": "In a village plagued by bandits and wild beasts, an unexpected hero emerges. Destiny calls, and your journey begins now. With great hopes and a small inventory, you set out into the world to find the strength needed to face Al'rek.",
+            "outro": "After traversing boundless forests and overcoming initial challenges, you feel your power growing with each day. The first act of your odyssey comes to an end, but this is just the beginning. More dangers and adventures lie ahead."
+        },
+        {
+            "actNumber": "II",
+            "actTitle": "The Quest for Allies",
+            "intro": "Your fame grows, and legends of your deeds begin to attract other heroes who wish to stand by your side. Traveling through towns and settlements, you gather around you a team of staunch allies, ready to share the burden of battle.",
+            "outro": "With every enemy defeated, your companions become more experienced, and their belief in victory grows stronger. As a team, you are ready to face the next challenges that fate brings. Al'rek awaits, but you are no longer alone."
+        },
+        {
+            "actNumber": "III",
+            "actTitle": "The Prophecy",
+            "intro": "In pursuit of Al'rek, you reach ancient ruins where a prophecy carved in stone reveals the secrets of your destiny. You must delve into ancient magics and uncover hidden powers that will help you face the looming darkness.",
+            "outro": "The prophecy has been fulfilled, and your skills have reached the pinnacle of possibility. You feel the time for confrontation is near, and Al'rek's aura already looms on the horizon. The final act of your journey approaches with great strides."
+        },
+        {
+            "actNumber": "IV",
+            "actTitle": "The Final Confrontation",
+            "intro": "You stand at the gates of Al'rek's dark fortress, where evil swirls in the air. Your heart beats strongly, and the fighting spirit of your allies is unwavering. All paths have led to this moment – the ultimate battle that will decide the fate of the world.",
+            "outro": "The battle that will forever be inscribed in the annals of history is behind you. Al'rek has been defeated, and his darkness dispersed to the winds. Peace has returned to the world, and your name will be sung by bards for endless ages. But remember, hero, the true adventure always finds a way to continue its story..."
+        }
+    ]
+}
