@@ -23,8 +23,11 @@ public class Player extends Character
     @Override
     public int attack()
     {
+        // todo attack with sword or with magic
         return 0;
     }
+
+    // todo perform some magic action heal, buff
 
     public void spendSkillPoints()
     {
