@@ -1,8 +1,8 @@
-package weapons;
+package items;
 
 import utils.GameLogic;
 
-public class Weapon
+public class Weapon extends Item
 {
     // constructor
     public Weapon(String name, int strength, int intelligence, int prize)

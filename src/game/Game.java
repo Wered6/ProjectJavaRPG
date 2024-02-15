@@ -3,7 +3,7 @@ package game;
 import characters.Enemy;
 import characters.Player;
 import utils.GameLogic;
-import weapons.Weapon;
+import items.Weapon;
 
 import java.util.ArrayList;
 import java.util.Arrays;

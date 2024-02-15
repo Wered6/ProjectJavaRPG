@@ -2,7 +2,7 @@ package characters;
 
 import spells.AttackSpell;
 import spells.UtilitySpell;
-import weapons.Weapon;
+import items.Weapon;
 import utils.GameLogic;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class Player extends Character
         this.utilitySpells = new ArrayList<>();
 
         // set first weapon
-        setWeapon(new Weapon("Dagger", 1, 0));
+//        setWeapon(new Weapon("Dagger", 1, 0));
 
         // set first spell
         addAttackSpell(new AttackSpell("Fire Ball", "Basic small fire ball.", 0, 2));
