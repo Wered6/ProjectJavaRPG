@@ -161,7 +161,7 @@ public class Game
             shop.resetWeapons();
             for (Weapon weapon : weaponsAct3)
             {
-                shop.addWeapon(weapon, 10);
+                shop.addWeapon(weapon, 15);
             }
             shop.setPotionsQuantity(2);
         }
@@ -182,7 +182,7 @@ public class Game
             shop.resetWeapons();
             for (Weapon weapon : weaponsAct4)
             {
-                shop.addWeapon(weapon, 15);
+                shop.addWeapon(weapon, 20);
             }
             shop.setPotionsQuantity(3);
             // calling the final battle
@@ -420,7 +420,7 @@ public class Game
 
     // act 3
     ArrayList<Weapon> weaponsAct3 = new ArrayList<>(Arrays.asList(
-            new Weapon("Steel Sword", 12, 3, "A sword crafted from steel, combining sharpness and strength for superior battle performance."),
+            new Weapon("Steel Sword\t", 12, 3, "A sword crafted from steel, combining sharpness and strength for superior battle performance."),
             new Weapon("War Hammer\t", 15, 2, "A devastating hammer capable of crushing foes with immense force."),
             new Weapon("Longbow\t", 13, 3, "A long-range bow designed for precision shooting, offering high damage from a distance."),
             new Weapon("Archmage's Wand", 4, 12, "A powerful wand that grants access to high-level spells, reserved for the most skilled magicians."),
