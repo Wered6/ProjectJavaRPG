@@ -35,69 +35,76 @@ public class Shop
             GameLogic.println("You have: " + player.getGold() + " gold");
             showPotions();
             showWeapons();
+            GameLogic.println("(0) Quit shop.");
             GameLogic.printSeparator(20);
             GameLogic.println("Which item you want to look closer?");
-            int itemIndex = GameLogic.readInt(weapons.size() + 1);
+            int itemIndex = GameLogic.readIntZero(weapons.size() + 1);
 
             GameLogic.clearConsole();
 
-            if (itemIndex == 1)
+            if (itemIndex != 0)
             {
-                GameLogic.println("A potion is a magical concoction used to heal wounds and restore health, often contained in a small vial and brewed with a mix of mystical herbs and enchanted ingredients.");
-            }
-            else
-            {
-                weapons.get(itemIndex - 2).getWeapon().showInfo();
-            }
-            GameLogic.println("(1) Buy.");
-            GameLogic.println("(2) Back to shop.");
-            GameLogic.println("(3) Quit shop.");
-            int input = GameLogic.readInt(3);
-            boolean boughtWeapon = false;
-            boolean boughtPotion = false;
-            switch (input)
-            {
-                case 1:
+                if (itemIndex == 1)
                 {
-                    if (itemIndex == 1)
+                    GameLogic.println("A potion is a magical concoction used to heal wounds and restore health, often contained in a small vial and brewed with a mix of mystical herbs and enchanted ingredients.");
+                }
+                else
+                {
+                    weapons.get(itemIndex - 2).getWeapon().showInfo();
+                }
+                GameLogic.println("(1) Buy.");
+                GameLogic.println("(2) Back to shop.");
+                GameLogic.println("(3) Quit shop.");
+                int input = GameLogic.readInt(3);
+                boolean boughtWeapon = false;
+                boolean boughtPotion = false;
+                switch (input)
+                {
+                    case 1:
                     {
-                        if (potionsQuantity < 1)
+                        if (itemIndex == 1)
                         {
-                            GameLogic.println("There is no potions to buy. Sorry.");
+                            if (potionsQuantity < 1)
+                            {
+                                GameLogic.println("There is no potions to buy. Sorry.");
+                            }
+                            else
+                            {
+                                boughtPotion = player.buyPotion();
+                            }
                         }
                         else
                         {
-                            boughtPotion = player.buyPotion();
+                            boughtWeapon = player.buyWeapon(weapons.get(itemIndex - 2));
                         }
+                        GameLogic.enterToContinue();
+                        GameLogic.clearConsole();
+                        break;
                     }
-                    else
+                    case 2:
                     {
-                        boughtWeapon = player.buyWeapon(weapons.get(itemIndex - 2));
+                        GameLogic.clearConsole();
+                        break;
                     }
-                    GameLogic.enterToContinue();
-                    GameLogic.clearConsole();
-                    break;
+                    case 3:
+                    {
+                        quitShop = true;
+                        GameLogic.clearConsole();
+                        break;
+                    }
                 }
-                case 2:
+                if (boughtWeapon)
                 {
-                    GameLogic.clearConsole();
-                    break;
+                    weapons.remove(itemIndex - 2);
                 }
-                case 3:
+                if (boughtPotion)
                 {
-                    quitShop = true;
-                    GameLogic.clearConsole();
-                    break;
+                    potionsQuantity--;
                 }
             }
-
-            if (boughtWeapon)
+            else
             {
-                weapons.remove(itemIndex - 2);
-            }
-            if (boughtPotion)
-            {
-                potionsQuantity--;
+                quitShop = true;
             }
         }
     }
@@ -132,6 +139,6 @@ public class Shop
     }
 
     private int potionsQuantity;
-    private ArrayList<ShopWeapon> weapons;
+    private final ArrayList<ShopWeapon> weapons;
     private int numberList;
 }

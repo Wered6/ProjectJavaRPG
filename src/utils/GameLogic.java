@@ -37,6 +37,38 @@ abstract public class GameLogic
         return input;
     }
 
+    public static int readIntZero(int userChoices)
+    {
+        int input;
+
+        do
+        {
+            try
+            {
+                print("-> ");
+                print(ANSI_GREEN);
+                String line = scanner.nextLine();
+                input = Integer.parseInt(line);
+                print(ANSI_RESET);
+            }
+            catch (NumberFormatException e)
+            {
+                input = -1;
+                print(ANSI_RESET);
+                println("Enter integer!");
+            }
+
+            if (input < 0 || input > userChoices)
+            {
+                print(ANSI_RESET);
+                println("Enter a number between [" + 0 + ", " + userChoices + "].");
+            }
+        }
+        while (input < 0 || input > userChoices);
+
+        return input;
+    }
+
     public static String readString()
     {
         String input;
