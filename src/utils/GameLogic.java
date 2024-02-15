@@ -95,7 +95,7 @@ abstract public class GameLogic
     // method to print anything letter by letter with default delay
     public static void print(String str)
     {
-        print(str, 30);
+        print(str, 1);
     }
 
     public static void println(String str)

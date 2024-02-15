@@ -196,7 +196,10 @@ public class Game
     {
         // check if act must be increased
         checkAct();
-        randomBattle();
+        if (act != 4)
+        {
+            randomBattle();
+        }
     }
 
     // shopping
@@ -373,7 +376,10 @@ public class Game
         // creating the Al'rek and letting the player fight against him
         battle(new Enemy("Al'rek", 300));
         // printing the proper ending
-        Story.printEnd(); // its only when we win, what happens when we loose
+        if (player.getHp() > 0)
+        {
+            Story.printEnd(); // its only when we win, what happens when we loose
+        }
     }
 
     // method that gets called when the player is dead
@@ -385,7 +391,7 @@ public class Game
         GameLogic.println("Thank you for playing my game. I hope you enjoyed it. :)");
         GameLogic.enterToContinue();
         JsonScoreSaver.addNewScore(player.getName(), player.getXp());
-        isRunning = false;
+        endGame();
     }
 
     // printing out the most important information about the player character
@@ -397,7 +403,7 @@ public class Game
     }
 
     //enemy names
-    private String[] enemies = {"Misty Forest Scout", "Shadow Mage", "Herald of Fear", "Undead Guardian", "Shadow Berserker"};
+    private final String[] enemies = {"Misty Forest Scout", "Shadow Mage", "Herald of Fear", "Undead Guardian", "Shadow Berserker"};
 
     // weapons
     // act 1
@@ -444,5 +450,5 @@ public class Game
     private int act = 1;
     private boolean isRunning;
     private Player player;
-    private Shop shop = new Shop();
+    private final Shop shop = new Shop();
 }
