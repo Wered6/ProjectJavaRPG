@@ -125,11 +125,11 @@ public class Game
             // story
             Story.printSecondActIntro();
             // assign new values to enemies
-            enemies[0] = "Iluzjonista";
-            enemies[1] = "Ożywiony Obrońca";
-            enemies[2] = "Wygnany Czarownik";
-            enemies[3] = "Zaklinacz Bestii";
-            enemies[4] = "Patriarcha Cieni";
+            enemies[0] = "Illusionist";
+            enemies[1] = "Reanimated Defender";
+            enemies[2] = "Exiled Sorcerer";
+            enemies[3] = "Beast Tamer";
+            enemies[4] = "Patriarch of Shadows";
             // fill the shop
             shop.resetWeapons();
             for (Weapon weapon : weaponsAct2)
@@ -150,11 +150,11 @@ public class Game
             // story
             Story.printThirdActIntro();
             // assign new values to enemies
-            enemies[0] = "Płomienny Strażnik";
-            enemies[1] = "Duch Wojownika";
-            enemies[2] = "Nocny Przemytnik";
-            enemies[3] = "Arcymag Krwi";
-            enemies[4] = "Siewca Zapomnienia";
+            enemies[0] = "Flame Guardian";
+            enemies[1] = "Warrior's Spirit";
+            enemies[2] = "Night Smuggler";
+            enemies[3] = "Archmage of Blood";
+            enemies[4] = "Sower of Oblivion";
             // fully heal the player
             player.restoreFullHp();
             // fill the shop
@@ -395,7 +395,7 @@ public class Game
     }
 
     //enemy names
-    private String[] enemies = {"Zwiadowca Mglistych Lasów", "Cienisty Mag", "Posłaniec Strachu", "Nieumarły Strażnik", "Berserker Cienia"};
+    private String[] enemies = {"Misty Forest Scout", "Shadow Mage", "Herald of Fear", "Undead Guardian", "Shadow Berserker"};
 
     // weapons
     // act 1
