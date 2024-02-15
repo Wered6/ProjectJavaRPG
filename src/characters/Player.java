@@ -1,5 +1,6 @@
 package characters;
 
+import weapons.Weapon;
 import utils.GameLogic;
 
 public class Player extends Character
@@ -9,13 +10,28 @@ public class Player extends Character
     {
         // calling constructor of superclass
         super(name, 100, 0);
+
         // set additional stats
         this.gold = 5;
         this.pots = 0;
+
+        // set first weapon
+        this.weapon = new Weapon("Dagger", 1, 0);
+
         // set skills
-        this.strength = 5;
-        this.intelligence = 5;
+        // strength
+        this.baseStrength = 5;
+        this.weaponStrength = 0;
+        this.buffStrength = 0;
+
+        // intelligence
+        this.baseIntelligence = 5;
+        this.weaponIntelligence = 0;
+        this.buffIntelligence = 0;
+
+        // set skillPoints
         this.skillPoints = 4;
+        // method to spend those Points
         spendSkillPoints();
     }
 
@@ -23,10 +39,33 @@ public class Player extends Character
     @Override
     public int attack()
     {
-        // todo attack with sword or with magic
+        GameLogic.printHeading("Choose attack type!");
+        GameLogic.println("(1) Attack with weapon.");
+        GameLogic.println("(2) Attack with spell.");
+        int input = GameLogic.readInt(2);
+        return switch (input)
+        {
+            case 1 -> attackWithWeapon();
+            case 2 -> attackWithSpell();
+            default -> 0;
+        };
+    }
+
+    private int attackWithWeapon()
+    {
+        return getStrength();
+    }
+
+    private int attackWithSpell()
+    {
         return 0;
     }
 
+    public void useNonAttackSpell()
+    {
+        // buff
+        // heal
+    }
     // todo perform some magic action heal, buff
 
     public void spendSkillPoints()
@@ -39,10 +78,11 @@ public class Player extends Character
         {
             GameLogic.clearConsole();
             GameLogic.printHeading("Spend skill points!");
+            GameLogic.println("Remember! Intelligence will boost your spells. Strength will boost your attack with weapons.");
             GameLogic.println("You have " + skillPoints + " points to spend.");
             GameLogic.println("Which skill you want to increase?");
-            GameLogic.println("(1) Strength" + "\t[have " + strength + "]");
-            GameLogic.println("(2) Intelligence" + "\t[have " + intelligence + "]");
+            GameLogic.println("(1) Strength" + "\t\t[have " + baseStrength + "]");
+            GameLogic.println("(2) Intelligence" + "\t[have " + baseIntelligence + "]");
             skillChoice = GameLogic.readInt(2);
             String skillName = skillNames[skillChoice - 1];
 
@@ -119,24 +159,24 @@ public class Player extends Character
 
     // skills methods
 
-    public int getStrength()
+    public int getBaseStrength()
     {
-        return strength;
+        return baseStrength;
     }
 
-    public int getIntelligence()
+    public int getBaseIntelligence()
     {
-        return intelligence;
+        return baseIntelligence;
     }
 
-    public void addStrength(int strength)
+    public void addBaseStrength(int strength)
     {
-        this.strength += strength;
+        this.baseStrength += strength;
     }
 
-    public void addIntelligence(int intelligence)
+    public void addBaseIntelligence(int intelligence)
     {
-        this.intelligence += intelligence;
+        this.baseIntelligence += intelligence;
     }
 
     public void addSkillPoints(int skillPoints)
@@ -148,8 +188,8 @@ public class Player extends Character
     {
         switch (skillName)
         {
-            case "Strength" -> addStrength(points);
-            case "Intelligence" -> addIntelligence(points);
+            case "Strength" -> addBaseStrength(points);
+            case "Intelligence" -> addBaseIntelligence(points);
         }
     }
 
@@ -157,24 +197,86 @@ public class Player extends Character
     {
         return switch (skillName)
         {
-            case "Strength" -> getStrength();
-            case "Intelligence" -> getIntelligence();
+            case "Strength" -> getBaseStrength();
+            case "Intelligence" -> getBaseIntelligence();
             default -> 0;
         };
     }
 
     public void showAllSkills()
     {
-        GameLogic.println("Strength:\t" + strength);
-        GameLogic.println("Intelligence:\t" + intelligence);
+        GameLogic.println("\t\tfull\tbase\tweapon\tbuff");
+        GameLogic.println("Strength:\t" + getStrength() + "\t(" + baseStrength + "\t" + weaponStrength + "\t" + buffStrength + ")");
+        GameLogic.println("Intelligence:\t" + getIntelligence() + "\t(" + baseIntelligence + "\t" + weaponIntelligence + "\t" + buffIntelligence + ")");
     }
+
+    public int getStrength()
+    {
+        return baseStrength + weaponStrength + buffStrength;
+    }
+
+    public int getIntelligence()
+    {
+        return baseIntelligence = weaponIntelligence + buffIntelligence;
+    }
+
+    public int getWeaponStrength()
+    {
+        return weaponStrength;
+    }
+
+    public int getBuffStrength()
+    {
+        return buffStrength;
+    }
+
+    public void setBuffStrength(int buffStrength)
+    {
+        this.buffStrength = buffStrength;
+    }
+
+    public int getWeaponIntelligence()
+    {
+        return weaponIntelligence;
+    }
+
+    public int getBuffIntelligence()
+    {
+        return buffIntelligence;
+    }
+
+    public void setBuffIntelligence(int buffIntelligence)
+    {
+        this.buffIntelligence = buffIntelligence;
+    }
+
+    public Weapon getWeapon()
+    {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon)
+    {
+        this.weapon = weapon;
+        weaponStrength = weapon.getStrength();
+        weaponIntelligence = weapon.getIntelligence();
+    }
+
+    // weapon
+    private Weapon weapon;
 
     // additional player stats
     private int gold;
     private int pots;
 
     // skills
-    private int strength;
-    private int intelligence;
+    private int baseStrength;
+    private int weaponStrength;
+    private int buffStrength;
+
+    private int baseIntelligence;
+    private int weaponIntelligence;
+    private int buffIntelligence;
+
     private int skillPoints;
 }
