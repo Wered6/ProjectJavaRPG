@@ -392,42 +392,42 @@ public class Game
     // weapons
     // act 1
     ArrayList<Weapon> weaponsAct1 = new ArrayList<>(Arrays.asList(
-            new Weapon("Rusty Sword", 5, 1, 5),
-            new Weapon("Wooden Shield", 3, 2, 5),
-            new Weapon("Hunter's Bow", 4, 1, 5),
-            new Weapon("Novice's Wand", 1, 5, 5),
-            new Weapon("Enchanter's Stone", 2, 4, 5),
-            new Weapon("Book of Shadows", 1, 5, 5)
+            new Weapon("Rusty Sword", 5, 1),
+            new Weapon("Wooden Shield", 3, 2),
+            new Weapon("Hunter's Bow", 4, 1),
+            new Weapon("Novice's Wand", 1, 5),
+            new Weapon("Enchanter's Stone", 2, 4),
+            new Weapon("Book of Shadows", 1, 5)
     ));
 
     // act 2
     ArrayList<Weapon> weaponsAct2 = new ArrayList<>(Arrays.asList(
-            new Weapon("Iron Sword", 8, 2, 10),
-            new Weapon("Battle Axe", 10, 1, 10),
-            new Weapon("Reinforced Bow", 9, 2, 10),
-            new Weapon("Sorcerer's Staff", 3, 8, 10),
-            new Weapon("Crystal Orb", 2, 9, 10),
-            new Weapon("Ancient Grimoire", 3, 8, 10)
+            new Weapon("Iron Sword", 8, 2),
+            new Weapon("Battle Axe", 10, 1),
+            new Weapon("Reinforced Bow", 9, 2),
+            new Weapon("Sorcerer's Staff", 3, 8),
+            new Weapon("Crystal Orb", 2, 9),
+            new Weapon("Ancient Grimoire", 3, 8)
     ));
 
     // act 3
     ArrayList<Weapon> weaponsAct3 = new ArrayList<>(Arrays.asList(
-            new Weapon("Steel Sword", 12, 3, 15),
-            new Weapon("War Hammer", 15, 2, 15),
-            new Weapon("Longbow", 13, 3, 15),
-            new Weapon("Archmage's Wand", 4, 12, 15),
-            new Weapon("Elemental Scepter", 3, 15, 15),
-            new Weapon("Tome of the Ancients", 4, 12, 15)
+            new Weapon("Steel Sword", 12, 3),
+            new Weapon("War Hammer", 15, 2),
+            new Weapon("Longbow", 13, 3),
+            new Weapon("Archmage's Wand", 4, 12),
+            new Weapon("Elemental Scepter", 3, 15),
+            new Weapon("Tome of the Ancients", 4, 12)
     ));
 
     // act 4
     ArrayList<Weapon> weaponsAct4 = new ArrayList<>(Arrays.asList(
-            new Weapon("Mythril Sword", 18, 4, 20),
-            new Weapon("Dragon Axe", 20, 3, 20),
-            new Weapon("Crossbow", 19, 4, 20),
-            new Weapon("Celestial Staff", 5, 18, 20),
-            new Weapon("Orb of Power", 4, 20, 20),
-            new Weapon("Book of Infinite Spells", 5, 18, 20)
+            new Weapon("Mythril Sword", 18, 4),
+            new Weapon("Dragon Axe", 20, 3),
+            new Weapon("Crossbow", 19, 4),
+            new Weapon("Celestial Staff", 5, 18),
+            new Weapon("Orb of Power", 4, 20),
+            new Weapon("Book of Infinite Spells", 5, 18)
     ));
 
 

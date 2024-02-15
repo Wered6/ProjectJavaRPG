@@ -5,30 +5,19 @@ import utils.GameLogic;
 public class Weapon extends Item
 {
     // constructor
-    public Weapon(String name, int strength, int intelligence, int prize)
+    public Weapon(String name, int strength, int intelligence)
     {
-        this.name = name;
+        super(name);
         this.strength = strength;
         this.intelligence = intelligence;
-        this.prize = prize;
     }
 
-    public void shopWindow()
+    @Override
+    public void showInfo()
     {
-        showDescription();
-        GameLogic.println("Prize:\t" + prize + "g");
-    }
-
-    public void showDescription()
-    {
-        GameLogic.println("Name:\t\t" + name);
+        super.showInfo();
         GameLogic.println("Strength:\t" + strength);
         GameLogic.println("Intelligence:\t" + intelligence);
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     public int getStrength()
@@ -41,13 +30,6 @@ public class Weapon extends Item
         return intelligence;
     }
 
-    public int getPrize()
-    {
-        return prize;
-    }
-
-    private final String name;
     private final int strength;
     private final int intelligence;
-    private final int prize;
 }

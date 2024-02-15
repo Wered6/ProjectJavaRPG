@@ -243,7 +243,7 @@ public class Player extends Character
         GameLogic.printSeparator(20);
         // weapon
         GameLogic.println("Weapon:");
-        weapon.showDescription();
+        weapon.showInfo();
         GameLogic.printSeparator(20);
         // spells
         if (!attackSpells.isEmpty())
