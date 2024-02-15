@@ -1,16 +1,14 @@
 package utils;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
 public class JsonActsReader
 {
-    private static String filePath;
+    private static final String filePath;
     private static List<Act> acts;
 
     static
@@ -53,14 +51,6 @@ public class JsonActsReader
         return act.map(Act::getOutro).orElse("Act not found");
     }
 
-    // Other static methods...
-
-    public static void setFilePath(String fp)
-    {
-        filePath = fp;
-        loadActs();
-    }
-
     // Inner class to match the JSON structure
     public static class ActsWrapper
     {
@@ -84,19 +74,9 @@ public class JsonActsReader
             return actNumber;
         }
 
-        public void setActNumber(String actNumber)
-        {
-            this.actNumber = actNumber;
-        }
-
         public String getActTitle()
         {
             return actTitle;
-        }
-
-        public void setActTitle(String actTitle)
-        {
-            this.actTitle = actTitle;
         }
 
         public String getIntro()
@@ -104,19 +84,9 @@ public class JsonActsReader
             return intro;
         }
 
-        public void setIntro(String intro)
-        {
-            this.intro = intro;
-        }
-
         public String getOutro()
         {
             return outro;
-        }
-
-        public void setOutro(String outro)
-        {
-            this.outro = outro;
         }
     }
 }
