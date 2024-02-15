@@ -5,6 +5,7 @@ import characters.Player;
 import items.Weapon;
 import shop.Shop;
 import utils.GameLogic;
+import utils.JsonXPWriter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -383,6 +384,7 @@ public class Game
         GameLogic.printHeading("You earned " + player.getXp() + " XP on your journey. Try to earn more next time!");
         GameLogic.println("Thank you for playing my game. I hope you enjoyed it. :)");
         GameLogic.enterToContinue();
+        JsonXPWriter.addNewScore(player.getName(), player.getXp());
         isRunning = false;
     }
 

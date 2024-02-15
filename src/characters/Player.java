@@ -16,7 +16,7 @@ public class Player extends Character
     public Player(String name)
     {
         // calling constructor of superclass
-        super(name, 100, 0);
+        super(name, 1, 0);
 
         // set additional stats
         this.gold = 5;
