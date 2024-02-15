@@ -2,8 +2,10 @@ package game;
 
 import characters.Enemy;
 import characters.Player;
-import utils.GameLogic;
 import items.Weapon;
+import shop.Shop;
+import utils.GameLogic;
+import items.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +46,14 @@ public class Game
 
         // setting isRunning to true, so the game loop can continue
         isRunning = true;
+
+        // fill the shop
+        shop.resetWeapons();
+        for (Weapon weapon : weaponsAct1)
+        {
+            shop.addWeapon(weapon, 5);
+        }
+        shop.setPotionsQuantity(1);
     }
 
     private void gameLoop()
@@ -57,7 +67,7 @@ public class Game
             {
                 case 1 -> continueJourney();
                 case 2 -> characterInfo();
-                case 3 -> shop();
+                case 3 -> showShop();
                 case 4 -> endGame();
             }
         }
@@ -120,6 +130,13 @@ public class Game
             enemies[2] = "Wygnany Czarownik";
             enemies[3] = "Zaklinacz Bestii";
             enemies[4] = "Patriarcha Cieni";
+            // fill the shop
+            shop.resetWeapons();
+            for (Weapon weapon : weaponsAct2)
+            {
+                shop.addWeapon(weapon, 10);
+            }
+            shop.setPotionsQuantity(2);
         }
         else if (player.getXp() >= 50 && act == 2)
         {
@@ -139,6 +156,13 @@ public class Game
             enemies[4] = "Siewca Zapomnienia";
             // fully heal the player
             player.restoreFullHp();
+            // fill the shop
+            shop.resetWeapons();
+            for (Weapon weapon : weaponsAct3)
+            {
+                shop.addWeapon(weapon, 10);
+            }
+            shop.setPotionsQuantity(2);
         }
         else if (player.getXp() >= 100 && act == 3)
         {
@@ -152,6 +176,13 @@ public class Game
             Story.printFourthActIntro();
             // fully heal the player
             player.restoreFullHp();
+            // fill the shop
+            shop.resetWeapons();
+            for (Weapon weapon : weaponsAct4)
+            {
+                shop.addWeapon(weapon, 15);
+            }
+            shop.setPotionsQuantity(3);
             // calling the final battle
             finalBattle();
         }
@@ -164,38 +195,41 @@ public class Game
         checkAct();
     }
 
-    // shopping / encountering a travelling trader
-    private void shop()
+    // shopping
+    private void showShop()
     {
         GameLogic.clearConsole();
         GameLogic.printHeading("You meet a mysterious stranger.\nHe offers you something:");
-        int pricePot = 5;
-        GameLogic.println("- Magic Potion: " + pricePot + " gold.");
-        GameLogic.printSeparator(20);
-        // weapons
-        GameLogic.println("- Weapons:");
-        // ask the player to buy one
-        GameLogic.println("Do you want to buy one?");
-        GameLogic.println("(1) Yes!");
-        GameLogic.println("(2) No thanks.");
-        int input = GameLogic.readInt(2);
-        // check if player wants to buy
-        if (input == 1)
-        {
-            GameLogic.clearConsole();
-            // check if player has enough gold
-            if (player.getGold() >= pricePot)
-            {
-                GameLogic.printHeading("You bought a magical potion for " + pricePot + " gold.");
-                player.addPot();
-                player.subGold(pricePot);
-            }
-            else
-            {
-                GameLogic.printHeading("You don't have enough gold to buy this...");
-            }
-            GameLogic.enterToContinue();
-        }
+
+        shop.shopping(player);
+        GameLogic.enterToContinue();
+//        int pricePot = 5;
+//        GameLogic.println("- Magic Potion: " + pricePot + " gold.");
+//        GameLogic.printSeparator(20);
+//        // weapons
+//        GameLogic.println("- Weapons:");
+//        // ask the player to buy one
+//        GameLogic.println("Do you want to buy one?");
+//        GameLogic.println("(1) Yes!");
+//        GameLogic.println("(2) No, thanks.");
+//        int input = GameLogic.readInt(2);
+//        // check if player wants to buy
+//        if (input == 1)
+//        {
+//            GameLogic.clearConsole();
+//            // check if player has enough gold
+//            if (player.getGold() >= pricePot)
+//            {
+//                GameLogic.printHeading("You bought a magical potion for " + pricePot + " gold.");
+//                player.addPot();
+//                player.subGold(pricePot);
+//            }
+//            else
+//            {
+//                GameLogic.printHeading("You don't have enough gold to buy this...");
+//            }
+//            GameLogic.enterToContinue();
+//        }
     }
 
     // creating a random battle
@@ -282,11 +316,11 @@ public class Game
             {
                 // use potion
                 GameLogic.clearConsole();
-                if (player.getPots() > 0 && player.getHp() < player.getMaxHp())
+                if (player.getPotions() > 0 && player.getHp() < player.getMaxHp())
                 {
                     // player CAN take a potion
                     // make sure player wants to drink the potion
-                    GameLogic.printHeading("Do you want to drink a potion? (" + player.getPots() + " left).");
+                    GameLogic.printHeading("Do you want to drink a potion? (" + player.getPotions() + " left).");
                     GameLogic.println("(1) Yes");
                     GameLogic.println("(2) No, maybe later");
                     input = GameLogic.readInt(2);
@@ -294,7 +328,7 @@ public class Game
                     {
                         // player actually took it
                         player.restoreFullHp();
-                        player.subPots();
+                        player.subPotions();
                         GameLogic.clearConsole();
                         GameLogic.printHeading("You drank a magic potion. It restored your health back to " + player.getMaxHp());
                         GameLogic.enterToContinue();
@@ -303,7 +337,7 @@ public class Game
                 else
                 {
                     // player CANNOT take a potion
-                    GameLogic.printHeading("You don't have any potions or you're at full health.");
+                    GameLogic.printHeading("You don't have any potions, or you're at full health.");
                     GameLogic.enterToContinue();
                 }
             }
@@ -323,10 +357,10 @@ public class Game
                     }
                     else
                     {
-                        GameLogic.printHeading("You didnt manage to escape.");
+                        GameLogic.printHeading("You didn't manage to escape.");
                         // calculate damage the player takes
                         int dmgTook = enemy.attack();
-                        GameLogic.println("In hurry you took " + dmgTook + " damage!");
+                        GameLogic.println("In hurry, you took " + dmgTook + " damage!");
                         player.receiveDmg(dmgTook);
                         GameLogic.enterToContinue();
                         // check if player's still alive
@@ -392,47 +426,47 @@ public class Game
     // weapons
     // act 1
     ArrayList<Weapon> weaponsAct1 = new ArrayList<>(Arrays.asList(
-            new Weapon("Rusty Sword", 5, 1),
-            new Weapon("Wooden Shield", 3, 2),
-            new Weapon("Hunter's Bow", 4, 1),
-            new Weapon("Novice's Wand", 1, 5),
-            new Weapon("Enchanter's Stone", 2, 4),
-            new Weapon("Book of Shadows", 1, 5)
+            new Weapon("Rusty Sword\t", 5, 1, "An aged blade that's seen better days, offering modest damage with a hint of ancient reliability."),
+            new Weapon("Wooden Shield", 3, 2, "A basic shield made from sturdy wood, providing minimal protection and a slight boost in defense."),
+            new Weapon("Hunter's Bow", 4, 1, "A simple bow favored by hunters, balancing ease of use with effective range."),
+            new Weapon("Novice's Wand", 1, 5, "A beginner's wand imbued with basic magical properties for aspiring magicians."),
+            new Weapon("Enchanter's Stone", 2, 4, "A mystical stone that enhances magical abilities, though it holds limited physical use."),
+            new Weapon("Book of Shadows", 1, 5, "An introductory tome of magic containing simple spells and incantations for the novice caster.")
     ));
 
     // act 2
     ArrayList<Weapon> weaponsAct2 = new ArrayList<>(Arrays.asList(
-            new Weapon("Iron Sword", 8, 2),
-            new Weapon("Battle Axe", 10, 1),
-            new Weapon("Reinforced Bow", 9, 2),
-            new Weapon("Sorcerer's Staff", 3, 8),
-            new Weapon("Crystal Orb", 2, 9),
-            new Weapon("Ancient Grimoire", 3, 8)
+            new Weapon("Iron Sword\t", 8, 2, "A reliable sword forged from iron, offering improved strength and durability."),
+            new Weapon("Battle Axe\t", 10, 1, "A heavy axe designed for combat, delivering powerful swings at the expense of finesse."),
+            new Weapon("Reinforced Bow", 9, 2, "A bow strengthened with metal, providing increased damage and range."),
+            new Weapon("Sorcerer's Staff", 3, 8, "A staff owned by sorcerers, channeling more powerful magic but requiring skill to wield."),
+            new Weapon("Crystal Orb", 2, 9, "A magical orb that amplifies magical energy, ideal for spellcasters seeking greater power."),
+            new Weapon("Ancient Grimoire", 3, 8, "A book filled with ancient spells, offering deeper magical knowledge and potency.")
     ));
 
     // act 3
     ArrayList<Weapon> weaponsAct3 = new ArrayList<>(Arrays.asList(
-            new Weapon("Steel Sword", 12, 3),
-            new Weapon("War Hammer", 15, 2),
-            new Weapon("Longbow", 13, 3),
-            new Weapon("Archmage's Wand", 4, 12),
-            new Weapon("Elemental Scepter", 3, 15),
-            new Weapon("Tome of the Ancients", 4, 12)
+            new Weapon("Steel Sword", 12, 3, "A sword crafted from steel, combining sharpness and strength for superior battle performance."),
+            new Weapon("War Hammer\t", 15, 2, "A devastating hammer capable of crushing foes with immense force."),
+            new Weapon("Longbow\t", 13, 3, "A long-range bow designed for precision shooting, offering high damage from a distance."),
+            new Weapon("Archmage's Wand", 4, 12, "A powerful wand that grants access to high-level spells, reserved for the most skilled magicians."),
+            new Weapon("Elemental Scepter", 3, 15, "A scepter that commands the elements, offering a wide range of magical attacks."),
+            new Weapon("TOTA\t", 4, 12, "Tome of the Ancients. A legendary book containing ancient wisdom and powerful spells, coveted by master spellcasters.")
     ));
 
     // act 4
     ArrayList<Weapon> weaponsAct4 = new ArrayList<>(Arrays.asList(
-            new Weapon("Mythril Sword", 18, 4),
-            new Weapon("Dragon Axe", 20, 3),
-            new Weapon("Crossbow", 19, 4),
-            new Weapon("Celestial Staff", 5, 18),
-            new Weapon("Orb of Power", 4, 20),
-            new Weapon("Book of Infinite Spells", 5, 18)
+            new Weapon("Mythril Sword", 18, 4, "A lightweight yet incredibly strong sword made of mythril, offering unmatched cutting power."),
+            new Weapon("Dragon Axe\t", 20, 3, "A fearsome axe forged from dragon bones, combining brutal power with mystical fire."),
+            new Weapon("Crossbow\t", 19, 4, "A mechanically advanced bow that combines power and precision for lethal shots."),
+            new Weapon("Celestial Staff", 5, 18, "A staff infused with celestial energies, granting immense magical power to its wielder."),
+            new Weapon("Orb of Power", 4, 20, "An orb overflowing with raw magical energy, capable of unleashing devastating spells."),
+            new Weapon("BOIS\t", 5, 18, "Book of Infinite Spells. An unparalleled tome of magic that contains endless spells, offering boundless magical possibilities.")
     ));
 
 
-    // story elements
     private int act = 1;
     private boolean isRunning;
     private Player player;
+    private Shop shop = new Shop();
 }

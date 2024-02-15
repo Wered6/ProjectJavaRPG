@@ -16,7 +16,7 @@ abstract public class Item
 
     public void showInfo()
     {
-        GameLogic.println("Name:\t" + name);
+        GameLogic.println("Name:\t\t" + name);
     }
 
     protected final String name;

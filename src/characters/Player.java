@@ -1,8 +1,11 @@
 package characters;
 
+import game.Game;
+import items.Weapon;
+import shop.ShopWeapon;
 import spells.AttackSpell;
 import spells.UtilitySpell;
-import items.Weapon;
+import items.Item;
 import utils.GameLogic;
 
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ public class Player extends Character
 
         // set additional stats
         this.gold = 5;
-        this.pots = 0;
+        this.potions = 0;
 
         // set skills
         // strength
@@ -35,10 +38,10 @@ public class Player extends Character
         this.utilitySpells = new ArrayList<>();
 
         // set first weapon
-//        setWeapon(new Weapon("Dagger", 1, 0));
+        setWeapon(new Weapon("Dagger", 1, 0, "Simple dagger"));
 
         // set first spell
-        addAttackSpell(new AttackSpell("Fire Ball", "Basic small fire ball.", 0, 2));
+        addAttackSpell(new AttackSpell("Fire Ball", "Basic small fireball.", 0, 2));
 
         // set skillPoints
         this.skillPoints = 4;
@@ -117,6 +120,41 @@ public class Player extends Character
         GameLogic.enterToContinue();
     }
 
+    public boolean buyWeapon(ShopWeapon shopWeapon)
+    {
+        String itemName = shopWeapon.getWeapon().getName();
+        int prize = shopWeapon.getPrize();
+
+        if (gold < prize)
+        {
+            GameLogic.println("You don't have enough gold to buy this weapon.");
+            return false;
+        }
+
+        GameLogic.println("You spend " + prize + " gold.");
+        GameLogic.println("You bought " + itemName);
+        gold -= prize;
+
+        setWeapon(shopWeapon.getWeapon());
+
+        return true;
+    }
+
+    public boolean buyPotion()
+    {
+        if (gold < 5)
+        {
+            GameLogic.println("You are too poor. You have only " + gold + " gold.");
+            return false;
+        }
+
+        GameLogic.println("You spend 5 gold for potion!");
+        potions++;
+        gold -= 5;
+
+        return true;
+    }
+
     // gold methods
     public int getGold()
     {
@@ -133,20 +171,20 @@ public class Player extends Character
         this.gold -= gold;
     }
 
-    // pots methods
-    public int getPots()
+    // potions methods
+    public int getPotions()
     {
-        return pots;
+        return potions;
     }
 
-    public void subPots()
+    public void subPotions()
     {
-        pots--;
+        potions--;
     }
 
-    public void addPot()
+    public void addPotions()
     {
-        pots++;
+        potions++;
     }
 
     // hp methods
@@ -238,14 +276,15 @@ public class Player extends Character
         // skills
         showAllSkills();
         GameLogic.printSeparator(20);
-        // # of pots
-        GameLogic.println("Potions:\t" + pots);
+        // # of potions
+        GameLogic.println("Potions:\t" + potions);
         GameLogic.printSeparator(20);
         // weapon
         GameLogic.println("Weapon:");
         weapon.showInfo();
         GameLogic.printSeparator(20);
         // spells
+        GameLogic.println("Spells:");
         if (!attackSpells.isEmpty())
         {
             for (AttackSpell attackSpell : attackSpells)
@@ -295,7 +334,7 @@ public class Player extends Character
         this.buffIntelligence = buffIntelligence;
     }
 
-    public Weapon getWeapon()
+    public Item getWeapon()
     {
         return weapon;
     }
@@ -333,7 +372,7 @@ public class Player extends Character
 
     // additional player stats
     private int gold;
-    private int pots;
+    private int potions;
 
     // skills
     private int baseStrength;
