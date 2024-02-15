@@ -1,7 +1,7 @@
 package game;
 
 import utils.GameLogic;
-import utils.JsonActsReader;
+import utils.JsonActsLoader;
 
 abstract public class Story
 {
@@ -83,17 +83,17 @@ abstract public class Story
     private static void printAct(String actNumber, boolean isIntro)
     {
         String str;
-        String actTitle = JsonActsReader.getActTitle(actNumber);
+        String actTitle = JsonActsLoader.getActTitle(actNumber);
         String content;
         if (isIntro)
         {
             str = "INTRO";
-            content = JsonActsReader.getIntro(actNumber);
+            content = JsonActsLoader.getIntro(actNumber);
         }
         else
         {
             str = "OUTRO";
-            content = JsonActsReader.getOutro(actNumber);
+            content = JsonActsLoader.getOutro(actNumber);
         }
 
         GameLogic.clearConsole();

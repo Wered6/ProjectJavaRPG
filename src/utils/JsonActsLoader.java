@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Optional;
 
-public class JsonActsReader
+public class JsonActsLoader
 {
     private static final String filePath;
     private static List<Act> acts;

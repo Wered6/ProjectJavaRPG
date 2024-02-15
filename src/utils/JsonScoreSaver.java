@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonXPWriter
+public class JsonScoreSaver
 {
     private static final String currentDirectory = System.getProperty("user.dir");
     private static final String filePath = currentDirectory + "/src/scores.json"; // Path to your scores.json file
