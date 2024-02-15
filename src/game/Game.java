@@ -5,7 +5,6 @@ import characters.Player;
 import items.Weapon;
 import shop.Shop;
 import utils.GameLogic;
-import items.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +120,8 @@ public class Game
             // story
             Story.printFirstActOutro();
             // let the player "level up"
-
+            player.addSkillPoints(8);
+            player.spendSkillPoints();
             // story
             Story.printSecondActIntro();
             // assign new values to enemies
@@ -145,7 +145,8 @@ public class Game
             // story
             Story.printSecondActOutro();
             // let the player "level up"
-
+            player.addSkillPoints(16);
+            player.spendSkillPoints();
             // story
             Story.printThirdActIntro();
             // assign new values to enemies
@@ -171,7 +172,8 @@ public class Game
             // story
             Story.printThirdActOutro();
             // let the player "level up"
-
+            player.addSkillPoints(24);
+            player.spendSkillPoints();
             // story
             Story.printFourthActIntro();
             // fully heal the player
@@ -193,6 +195,7 @@ public class Game
     {
         // check if act must be increased
         checkAct();
+        randomBattle();
     }
 
     // shopping
@@ -200,36 +203,7 @@ public class Game
     {
         GameLogic.clearConsole();
         GameLogic.printHeading("You meet a mysterious stranger.\nHe offers you something:");
-
         shop.shopping(player);
-        GameLogic.enterToContinue();
-//        int pricePot = 5;
-//        GameLogic.println("- Magic Potion: " + pricePot + " gold.");
-//        GameLogic.printSeparator(20);
-//        // weapons
-//        GameLogic.println("- Weapons:");
-//        // ask the player to buy one
-//        GameLogic.println("Do you want to buy one?");
-//        GameLogic.println("(1) Yes!");
-//        GameLogic.println("(2) No, thanks.");
-//        int input = GameLogic.readInt(2);
-//        // check if player wants to buy
-//        if (input == 1)
-//        {
-//            GameLogic.clearConsole();
-//            // check if player has enough gold
-//            if (player.getGold() >= pricePot)
-//            {
-//                GameLogic.printHeading("You bought a magical potion for " + pricePot + " gold.");
-//                player.addPot();
-//                player.subGold(pricePot);
-//            }
-//            else
-//            {
-//                GameLogic.printHeading("You don't have enough gold to buy this...");
-//            }
-//            GameLogic.enterToContinue();
-//        }
     }
 
     // creating a random battle
@@ -440,7 +414,7 @@ public class Game
             new Weapon("Battle Axe\t", 10, 1, "A heavy axe designed for combat, delivering powerful swings at the expense of finesse."),
             new Weapon("Reinforced Bow", 9, 2, "A bow strengthened with metal, providing increased damage and range."),
             new Weapon("Sorcerer's Staff", 3, 8, "A staff owned by sorcerers, channeling more powerful magic but requiring skill to wield."),
-            new Weapon("Crystal Orb", 2, 9, "A magical orb that amplifies magical energy, ideal for spellcasters seeking greater power."),
+            new Weapon("Crystal Orb\t", 2, 9, "A magical orb that amplifies magical energy, ideal for spellcasters seeking greater power."),
             new Weapon("Ancient Grimoire", 3, 8, "A book filled with ancient spells, offering deeper magical knowledge and potency.")
     ));
 

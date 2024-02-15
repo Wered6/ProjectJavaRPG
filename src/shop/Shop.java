@@ -74,11 +74,19 @@ public class Shop
                     {
                         boughtWeapon = player.buyWeapon(weapons.get(itemIndex - 2));
                     }
+                    GameLogic.enterToContinue();
+                    GameLogic.clearConsole();
+                    break;
+                }
+                case 2:
+                {
+                    GameLogic.clearConsole();
                     break;
                 }
                 case 3:
                 {
                     quitShop = true;
+                    GameLogic.clearConsole();
                     break;
                 }
             }
@@ -91,9 +99,6 @@ public class Shop
             {
                 potionsQuantity--;
             }
-
-            GameLogic.enterToContinue();
-            GameLogic.clearConsole();
         }
     }
 

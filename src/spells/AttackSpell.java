@@ -13,7 +13,7 @@ public class AttackSpell extends Spell
 
     public int attack(int intelligence)
     {
-        int damage = baseMinDamage + (int) (Math.random() * ((baseMaxDamage = baseMinDamage) + 1));
+        int damage = baseMinDamage + (int) (Math.random() * ((baseMaxDamage - baseMinDamage) + 1));
         return damage + intelligence;
     }
 

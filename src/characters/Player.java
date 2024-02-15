@@ -41,7 +41,7 @@ public class Player extends Character
         setWeapon(new Weapon("Dagger", 1, 0, "Simple dagger"));
 
         // set first spell
-        addAttackSpell(new AttackSpell("Fire Ball", "Basic small fireball.", 0, 2));
+        addAttackSpell(new AttackSpell("Fire Ball", "Basic small fireball.", 0, 8));
 
         // set skillPoints
         this.skillPoints = 4;
