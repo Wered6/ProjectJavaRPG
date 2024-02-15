@@ -3,6 +3,10 @@ package game;
 import characters.Enemy;
 import characters.Player;
 import utils.GameLogic;
+import weapons.Weapon;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game
 {
@@ -47,27 +51,21 @@ public class Game
         while (isRunning)
         {
             printMenu();
-            int input = GameLogic.readInt(3);
+            int input = GameLogic.readInt(4);
 
             switch (input)
             {
-                case 1:
-                {
-                    continueJourney();
-                    break;
-                }
-                case 2:
-                {
-                    characterInfo();
-                    break;
-                }
-                case 3:
-                {
-                    isRunning = false;
-                    break;
-                }
+                case 1 -> continueJourney();
+                case 2 -> characterInfo();
+                case 3 -> shop();
+                case 4 -> endGame();
             }
         }
+    }
+
+    private void endGame()
+    {
+        isRunning = false;
     }
 
     // method to read name of the player
@@ -122,12 +120,6 @@ public class Game
             enemies[2] = "Wygnany Czarownik";
             enemies[3] = "Zaklinacz Bestii";
             enemies[4] = "Patriarcha Cieni";
-            // assign new values to encounters
-            encounters[0] = "Battle";
-            encounters[1] = "Battle";
-            encounters[2] = "Battle";
-            encounters[3] = "Shop";
-            encounters[4] = "Shop";
         }
         else if (player.getXp() >= 50 && act == 2)
         {
@@ -145,12 +137,6 @@ public class Game
             enemies[2] = "Nocny Przemytnik";
             enemies[3] = "Arcymag Krwi";
             enemies[4] = "Siewca Zapomnienia";
-            // assign new valyes to encounters
-            encounters[0] = "Battle";
-            encounters[1] = "Battle";
-            encounters[2] = "Battle";
-            encounters[3] = "Battle";
-            encounters[4] = "Shop";
             // fully heal the player
             player.restoreFullHp();
         }
@@ -171,32 +157,11 @@ public class Game
         }
     }
 
-    // method to calculate a random encounter
-    private void randomEncounter()
-    {
-        // random number between 0 and the length of the encounters array
-        int encounter = (int) (Math.random() * encounters.length);
-        // calling the respective methods
-        if (encounters[encounter].equals("Battle"))
-        {
-            randomBattle();
-        }
-        else
-        {
-            shop();
-        }
-    }
-
     // method to continue the journey
     private void continueJourney()
     {
         // check if act must be increased
         checkAct();
-        // check if game isn't last act
-        if (act != 4)
-        {
-            randomEncounter();
-        }
     }
 
     // shopping / encountering a travelling trader
@@ -204,9 +169,11 @@ public class Game
     {
         GameLogic.clearConsole();
         GameLogic.printHeading("You meet a mysterious stranger.\nHe offers you something:");
-        int price = (int) (Math.random() * (10 + player.getPots() * 3) + 10 + player.getPots());
-        GameLogic.println("- Magic Potion: " + price + " gold.");
+        int pricePot = 5;
+        GameLogic.println("- Magic Potion: " + pricePot + " gold.");
         GameLogic.printSeparator(20);
+        // weapons
+        GameLogic.println("- Weapons:");
         // ask the player to buy one
         GameLogic.println("Do you want to buy one?");
         GameLogic.println("(1) Yes!");
@@ -217,11 +184,11 @@ public class Game
         {
             GameLogic.clearConsole();
             // check if player has enough gold
-            if (player.getGold() >= price)
+            if (player.getGold() >= pricePot)
             {
-                GameLogic.printHeading("You bought a magical potion for " + price + " gold.");
+                GameLogic.printHeading("You bought a magical potion for " + pricePot + " gold.");
                 player.addPot();
-                player.subGold(price);
+                player.subGold(pricePot);
             }
             else
             {
@@ -387,7 +354,8 @@ public class Game
         GameLogic.printSeparator(20);
         GameLogic.println("(1) Continue on your journey");
         GameLogic.println("(2) Character Info");
-        GameLogic.println("(3) Exit Game");
+        GameLogic.println("(3) Shop");
+        GameLogic.println("(4) Exit Game");
     }
 
     // the final (last) battle of the entire game
@@ -414,25 +382,54 @@ public class Game
     private void characterInfo()
     {
         GameLogic.clearConsole();
-        GameLogic.printHeading("CHARACTER INFO");
-        GameLogic.println(player.getName() + "\tHP: " + player.getHp() + "/" + player.getMaxHp());
-        GameLogic.printSeparator(20);
-        player.showAllSkills();
-        GameLogic.printSeparator(20);
-        // player xp and gold
-        GameLogic.println("XP: " + player.getXp() + "\tGold: " + player.getGold());
-        GameLogic.printSeparator(20);
-        // # of pots
-        GameLogic.println("# of Potions: " + player.getPots());
-        GameLogic.printSeparator(20);
-
+        player.characterInfo();
         GameLogic.enterToContinue();
     }
 
-    // random encounters
-    private String[] encounters = {"Battle", "Battle", "Battle", "Shop", "Shop"};
     //enemy names
     private String[] enemies = {"Zwiadowca Mglistych Lasów", "Cienisty Mag", "Posłaniec Strachu", "Nieumarły Strażnik", "Berserker Cienia"};
+
+    // weapons
+    // act 1
+    ArrayList<Weapon> weaponsAct1 = new ArrayList<>(Arrays.asList(
+            new Weapon("Rusty Sword", 5, 1, 5),
+            new Weapon("Wooden Shield", 3, 2, 5),
+            new Weapon("Hunter's Bow", 4, 1, 5),
+            new Weapon("Novice's Wand", 1, 5, 5),
+            new Weapon("Enchanter's Stone", 2, 4, 5),
+            new Weapon("Book of Shadows", 1, 5, 5)
+    ));
+
+    // act 2
+    ArrayList<Weapon> weaponsAct2 = new ArrayList<>(Arrays.asList(
+            new Weapon("Iron Sword", 8, 2, 10),
+            new Weapon("Battle Axe", 10, 1, 10),
+            new Weapon("Reinforced Bow", 9, 2, 10),
+            new Weapon("Sorcerer's Staff", 3, 8, 10),
+            new Weapon("Crystal Orb", 2, 9, 10),
+            new Weapon("Ancient Grimoire", 3, 8, 10)
+    ));
+
+    // act 3
+    ArrayList<Weapon> weaponsAct3 = new ArrayList<>(Arrays.asList(
+            new Weapon("Steel Sword", 12, 3, 15),
+            new Weapon("War Hammer", 15, 2, 15),
+            new Weapon("Longbow", 13, 3, 15),
+            new Weapon("Archmage's Wand", 4, 12, 15),
+            new Weapon("Elemental Scepter", 3, 15, 15),
+            new Weapon("Tome of the Ancients", 4, 12, 15)
+    ));
+
+    // act 4
+    ArrayList<Weapon> weaponsAct4 = new ArrayList<>(Arrays.asList(
+            new Weapon("Mythril Sword", 18, 4, 20),
+            new Weapon("Dragon Axe", 20, 3, 20),
+            new Weapon("Crossbow", 19, 4, 20),
+            new Weapon("Celestial Staff", 5, 18, 20),
+            new Weapon("Orb of Power", 4, 20, 20),
+            new Weapon("Book of Infinite Spells", 5, 18, 20)
+    ));
+
 
     // story elements
     private int act = 1;

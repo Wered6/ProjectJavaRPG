@@ -1,7 +1,11 @@
 package characters;
 
+import spells.AttackSpell;
+import spells.UtilitySpell;
 import weapons.Weapon;
 import utils.GameLogic;
+
+import java.util.ArrayList;
 
 public class Player extends Character
 {
@@ -15,9 +19,6 @@ public class Player extends Character
         this.gold = 5;
         this.pots = 0;
 
-        // set first weapon
-        this.weapon = new Weapon("Dagger", 1, 0);
-
         // set skills
         // strength
         this.baseStrength = 5;
@@ -28,6 +29,16 @@ public class Player extends Character
         this.baseIntelligence = 5;
         this.weaponIntelligence = 0;
         this.buffIntelligence = 0;
+
+        // set spells
+        this.attackSpells = new ArrayList<>();
+        this.utilitySpells = new ArrayList<>();
+
+        // set first weapon
+        setWeapon(new Weapon("Dagger", 1, 0));
+
+        // set first spell
+        addAttackSpell(new AttackSpell("Fire Ball", "Basic small fire ball.", 0, 2));
 
         // set skillPoints
         this.skillPoints = 4;
@@ -58,10 +69,14 @@ public class Player extends Character
 
     private int attackWithSpell()
     {
-        return 0;
+        GameLogic.printHeading("Attack Spells");
+        AttackSpell attackSpell = chooseSpell();
+        int intelligence = getIntelligence();
+
+        return attackSpell.attack(intelligence);
     }
 
-    public void useNonAttackSpell()
+    public void useUtilitySpell()
     {
         // buff
         // heal
@@ -78,11 +93,12 @@ public class Player extends Character
         {
             GameLogic.clearConsole();
             GameLogic.printHeading("Spend skill points!");
-            GameLogic.println("Remember! Intelligence will boost your spells. Strength will boost your attack with weapons.");
+            GameLogic.println("Remember!\nIntelligence will boost your spells.\nStrength will boost your attack with weapons.");
+            GameLogic.printSeparator(20);
             GameLogic.println("You have " + skillPoints + " points to spend.");
             GameLogic.println("Which skill you want to increase?");
-            GameLogic.println("(1) Strength" + "\t\t[have " + baseStrength + "]");
-            GameLogic.println("(2) Intelligence" + "\t[have " + baseIntelligence + "]");
+            GameLogic.println("(1) Strength" + "\t\t[have " + getStrength() + "]");
+            GameLogic.println("(2) Intelligence" + "\t[have " + getIntelligence() + "]");
             skillChoice = GameLogic.readInt(2);
             String skillName = skillNames[skillChoice - 1];
 
@@ -158,7 +174,6 @@ public class Player extends Character
     }
 
     // skills methods
-
     public int getBaseStrength()
     {
         return baseStrength;
@@ -203,11 +218,41 @@ public class Player extends Character
         };
     }
 
-    public void showAllSkills()
+    private void showAllSkills()
     {
         GameLogic.println("\t\tfull\tbase\tweapon\tbuff");
         GameLogic.println("Strength:\t" + getStrength() + "\t(" + baseStrength + "\t" + weaponStrength + "\t" + buffStrength + ")");
         GameLogic.println("Intelligence:\t" + getIntelligence() + "\t(" + baseIntelligence + "\t" + weaponIntelligence + "\t" + buffIntelligence + ")");
+    }
+
+    public void characterInfo()
+    {
+        GameLogic.printHeading("CHARACTER INFO");
+        GameLogic.println("Name:\t\t" + name);
+        GameLogic.println("HP:\t\t" + hp + "/" + maxHp);
+        GameLogic.printSeparator(20);
+        // player xp and gold
+        GameLogic.println("XP:\t\t" + xp);
+        GameLogic.println("Gold:\t\t" + gold);
+        GameLogic.printSeparator(20);
+        // skills
+        showAllSkills();
+        GameLogic.printSeparator(20);
+        // # of pots
+        GameLogic.println("Potions:\t" + pots);
+        GameLogic.printSeparator(20);
+        // weapon
+        GameLogic.println("Weapon:");
+        weapon.showDescription();
+        GameLogic.printSeparator(20);
+        // spells
+        if (!attackSpells.isEmpty())
+        {
+            for (AttackSpell attackSpell : attackSpells)
+            {
+                attackSpell.showInfo();
+            }
+        }
     }
 
     public int getStrength()
@@ -217,7 +262,7 @@ public class Player extends Character
 
     public int getIntelligence()
     {
-        return baseIntelligence = weaponIntelligence + buffIntelligence;
+        return baseIntelligence + weaponIntelligence + buffIntelligence;
     }
 
     public int getWeaponStrength()
@@ -258,9 +303,30 @@ public class Player extends Character
     public void setWeapon(Weapon weapon)
     {
         this.weapon = weapon;
-        weaponStrength = weapon.getStrength();
-        weaponIntelligence = weapon.getIntelligence();
+        this.weaponStrength = weapon.getStrength();
+        this.weaponIntelligence = weapon.getIntelligence();
     }
+
+    public void addAttackSpell(AttackSpell attackSpell)
+    {
+        attackSpells.add(attackSpell);
+    }
+
+    // spells methods
+    private AttackSpell chooseSpell()
+    {
+        for (int i = 0; i < attackSpells.size(); i++)
+        {
+            GameLogic.println("(" + (i + 1) + ") " + attackSpells.get(i).getName());
+        }
+        int input = GameLogic.readInt(attackSpells.size() + 1);
+
+        return attackSpells.get(input - 1);
+    }
+
+    // spells
+    private ArrayList<AttackSpell> attackSpells;
+    private ArrayList<UtilitySpell> utilitySpells;
 
     // weapon
     private Weapon weapon;
